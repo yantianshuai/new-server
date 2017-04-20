@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ninehcom.userinfo.mapper.EditconfigMapper">
+    <resultMap type="com.ninehcom.userinfo.entity.Editconfig" id="editconfigMap">
+        <id column="Id" property="Id"/>
+        <result column="Key" property="Key"/>
+        <result column="Value" property="Value"/>
+        <result column="Remark" property="Remark"/>
+        <result column="CreateTime" property="CreateTime"/>
+        <result column="UpdateTime" property="UpdateTime"/>
+    </resultMap>
+    <select id="selectAllEditconfig" resultMap="editconfigMap">
+        select * from editconfig
+    </select>
+    <select id="selectEditconfig" resultMap="editconfigMap">
+        SELECT 
+        *
+        FROM 
+        editconfig
+        where 
+        editconfig.Key = #{0}
+    </select>
+    <update id="createActionTable">
+        CREATE TABLE IF NOT EXISTS `action` (
+        `Id` int(11) NOT NULL COMMENT '行为ID',
+        `Name` varchar(255) DEFAULT NULL COMMENT '行为名称',
+        `Description` varchar(255) DEFAULT NULL COMMENT '行为描述',
+        `Score` int(11) DEFAULT NULL COMMENT '行为对应积分',
+        `Experience` int(11) DEFAULT NULL COMMENT '行为对应经验',
+        PRIMARY KEY (`Id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createUserStatisticsTable">
+        CREATE TABLE IF NOT EXISTS `user_statistics` (
+        `UserId` varchar(64) NOT NULL COMMENT '用户id',
+        `Level` int(11) DEFAULT NULL COMMENT '用户级别',
+        `Score` int(11) DEFAULT '0' COMMENT '用户积分',
+        `Experience` int(11) DEFAULT '0' COMMENT '用户经验',
+        `MaxDays` int(11) DEFAULT '0' COMMENT '最大登陆天数',
+        `LastTime` datetime DEFAULT NULL COMMENT '最后一次登录时间',
+        PRIMARY KEY (`UserId`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createUserActionTable">
+        CREATE TABLE IF NOT EXISTS `user_action` (
+        `Id` varchar(64) NOT NULL COMMENT '行为ID',
+        `Userid` varchar(64) NOT NULL COMMENT '用户id',
+        `Time` datetime DEFAULT NULL COMMENT '动作发生时间',
+        `Type` int(11) NOT NULL COMMENT '动作类型(1.签到)',
+        `Param` varchar(64) DEFAULT NULL COMMENT '行为参数',
+        `Score` int(11) DEFAULT NULL COMMENT '行为积分',
+        PRIMARY KEY (`Id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createUserScoreTable">
+        CREATE TABLE IF NOT EXISTS `user_score` (
+        `Userid` varchar(64) NOT NULL COMMENT '用户ID',
+        `Date` date NOT NULL COMMENT '日期',
+        `Score` int(11) DEFAULT '0' COMMENT '每日积分',
+        `Experience` int(11) DEFAULT NULL COMMENT '每日经验',
+        PRIMARY KEY (`Userid`,`Date`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createEditConfigTable">
+        CREATE TABLE IF NOT EXISTS `editconfig` (
+        `Id` int(11) NOT NULL AUTO_INCREMENT,
+        `Key` varchar(32) NOT NULL,
+        `Value` varchar(256) NOT NULL,
+        `Remark` varchar(4096) NOT NULL,
+        `CreateTime` datetime NOT NULL,
+        `UpdateTime` datetime NOT NULL,
+        PRIMARY KEY (`Id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createVersionTable">
+        CREATE TABLE IF NOT EXISTS `versions` (
+        `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
+        `VersionsTypeId` int(11) NOT NULL,
+        `VersionsTypeName` varchar(32) NOT NULL,
+        `VersionNum` varchar(32) NOT NULL,
+        `CreateTime` datetime NOT NULL,
+        `UpdateTime` datetime NOT NULL,
+        PRIMARY KEY (`Id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
+    </update>
+    <update id="createUserInfoTable">
+        CREATE TABLE IF NOT EXISTS `user_info` (
+        `Id` varchar(64) NOT NULL COMMENT '唯一标识',
+        `NickName` varchar(60) NOT NULL COMMENT '昵称',
+        `Signature` varchar(256) DEFAULT NULL COMMENT '个性签名',
+        `Portrait` varchar(256) DEFAULT NULL COMMENT '头像URL',
+        `Name` varchar(64) DEFAULT NULL COMMENT '姓名',
+        `Sex` int(11) DEFAULT '0' COMMENT '性别(0:未知 1::男 2:女)',
+        `Birthday` date DEFAULT NULL COMMENT '生日',
+        `Provinceid` int(11) DEFAULT NULL COMMENT '省编码',
+        `Cityid` int(11) DEFAULT NULL COMMENT '市编码',
+        `Districtid` int(11) DEFAULT NULL COMMENT '地区编码',
+        `Idnum` varchar(18) DEFAULT NULL COMMENT '身份证号码',
+        `Extra` varchar(1024) DEFAULT NULL COMMENT '扩展字段',
+        `CreatedAt` datetime DEFAULT NULL COMMENT '创建时间',
+        `UpdatedAt` datetime DEFAULT NULL COMMENT '更新时间',
+        `DeletedAt` datetime DEFAULT NULL COMMENT '删除时间',
+        `PhoneNumber` varchar(15) DEFAULT NULL COMMENT '手机号码（从后台取得，本地无需存储）',
+        `ChangeNickNameTimes` int(11) NOT NULL DEFAULT '0' COMMENT '昵称改变次数',
+        PRIMARY KEY (`Id`),
+        UNIQUE KEY `NickNameUnique` (`NickName`) USING HASH
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    </update>
+    <insert id="initEditConfig" parameterType="com.ninehcom.userinfo.entity.Editconfig">
+        INSERT INTO 
+        `editconfig` 
+        VALUES
+        (#{Id},#{Key},#{Value},#{Remark},NOW(),NOW())
+    </insert>
+    <insert id="initAction">
+        INSERT INTO 
+        action
+        VALUES 
+        (#{0}, #{1}, #{2}, #{3}, #{4})
+    </insert>
+    <insert id="initVersion">
+        INSERT INTO versions
+        (Id, VersionsTypeId, VersionsTypeName, VersionNum, CreateTime, UpdateTime) 
+        VALUES (#{0}, #{1}, #{2}, #{3},NOW(),NOW())
+    </insert>
+</mapper>
+

@@ -4,7 +4,11 @@ import com.ninehcom.common.utils.DataSourceContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,26 +19,21 @@ import java.util.logging.Logger;
  * Created by zhangbin on 2017/4/18.
  */
 @Aspect
-@Component
+@Configuration
 public class DataSourceAop {
 
     private static final Logger log = Logger.getLogger(DataSourceAop.class.getName());
 
-    @Around("execution(* com.ninehcom.*.service..*.find*(..)) || execution(* com.ninehcom.*.service..*.get*(..)) || execution(* com.ninehcom.*.service..*.select*(..))")
-    public Object twiceAsOld(ProceedingJoinPoint thisJoinPoint) throws Throwable {
-        final String methodName = thisJoinPoint.getSignature().getName();
-        final MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
-        Method method = methodSignature.getMethod();
+    @Value("${appid.}")
+    private String appids;
 
-        Transactional annotation = method.getAnnotation(Transactional.class);
-        if (annotation == null) {
-            DataSourceContextHolder.read();
-            log.info("---dataSource switch to：slaver---");
-        } else {
-            DataSourceContextHolder.write();
-            log.info("---transaction dataSource switch to：master---");
-        }
-        return thisJoinPoint.proceed();
+    @Before("execution(* com.ninehcom.*.controller..*.*(..))")
+    public void setDataSourceType(ProceedingJoinPoint thisJoinPoint){
+        Object[] objects = thisJoinPoint.getArgs();
+        int aa = appids.length();
+        String[] paramNames = ((CodeSignature) thisJoinPoint.getStaticPart().getSignature()).getParameterNames();
+
+
     }
 
 }

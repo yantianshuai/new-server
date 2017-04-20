@@ -1,69 +1,32 @@
 server:
   port: 8080
 
-datasource:
-  readSize: 2
-  type: comaibaba.druid.pool.DruidDataSource
+appid:
+  shenhua: 6
+  guoan: 3
+  taida: 5
 
-  #上海申花
+
+datasource:
   shenhua:
     url: jdbc:mysql://123.59.138.131:3306/shanghaifc?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
     username: shuser
     password: j4R71LmKjf#9h
-    driver-class-name: com.mysql.jdbc.Driver
-    filters: stat
-    maxActive: 20
-    initialSize: 1
-    maxWait: 60000
-    minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQueryTimeout: 900000
-    validationQuery: SELECT SYSDATE() from dual
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
+    driverClass: com.mysql.jdbc.Driver
 
-  #天津泰达
   taida:
     url: jdbc:mysql://120.132.61.35/tianjinfc?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
     username: tjuser
     password: GbqTq9Vzdfj#9h
-    driver-class-name: com.mysql.jdbc.Driver
-    filters: stat
-    maxActive: 20
-    initialSize: 1
-    maxWait: 60000
-    minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQueryTimeout: 900000
-    validationQuery: SELECT SYSDATE() from dual
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
+    driverClass: com.mysql.jdbc.Driver
 
-  #北京国安
   guoan:
     url: jdbc:mysql://123.59.84.66:3306/guoan_new?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
     username: guoan
     password: rr7ZKIqHsdfje$9h
-    driver-class-name: com.mysql.jdbc.Driver
-    filters: stat
-    maxActive: 20
-    initialSize: 1
-    maxWait: 60000
-    minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQueryTimeout: 900000
-    validationQuery: SELECT SYSDATE() from dual
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
+    driverClass: com.mysql.jdbc.Driver
+
+mybatis:
+    typeAliasesPackage: com.ninehcom
+    mapperLocations: classpath:/sqlmaps/*.xml
+    configLocation: classpath:/mybatis-config.xml

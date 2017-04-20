@@ -9,9 +9,9 @@ package com.ninehcom.common.enums;
  * 数据源操作类型 和 对应名字的枚举
  */
 public enum DataSourceType {
-
-    read("read", "slaver"),
-    write("write", "master");
+    shenhuaDB("shenhuaDB", "ShenHuaDB"),
+    taidaDB("taidaDB", "TaiDaDB"),
+    guoanDB("guoanDB","GuoAnDB");
 
     private String type;
     private String name;
