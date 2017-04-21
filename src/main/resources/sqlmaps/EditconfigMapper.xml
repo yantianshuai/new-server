@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ninehcom.userinfo.mapper.EditconfigMapper">
-    <resultMap type="com.ninehcom.userinfo.entity.Editconfig" id="editconfigMap">
+<mapper namespace="com.ninehcom.newsserver.mapper.EditconfigMapper">
+    <resultMap type="com.ninehcom.newsserver.entity.Editconfig" id="editconfigMap">
         <id column="Id" property="Id"/>
         <result column="Key" property="Key"/>
         <result column="Value" property="Value"/>
@@ -20,7 +20,7 @@
         FROM 
         editconfig
         where 
-        editconfig.Key = #{0}
+        editconfig.Key = #{Key}
     </select>
     <update id="createActionTable">
         CREATE TABLE IF NOT EXISTS `action` (
@@ -108,7 +108,7 @@
         UNIQUE KEY `NickNameUnique` (`NickName`) USING HASH
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
     </update>
-    <insert id="initEditConfig" parameterType="com.ninehcom.userinfo.entity.Editconfig">
+    <insert id="initEditConfig" parameterType="com.ninehcom.newsserver.entity.Editconfig">
         INSERT INTO 
         `editconfig` 
         VALUES

@@ -1,6 +1,5 @@
 package com.ninehcom.newsserver.conf;
 
-import com.ninehcom.common.utils.DataSourceContextHolder;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**

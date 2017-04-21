@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 /**
  * Created by Administrator on 2017/4/20.
  */
-public class baseMapper {
+public class BaseMapper {
 
     @Autowired
     @Qualifier("sqlSessionTemplate")

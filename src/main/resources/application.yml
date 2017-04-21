@@ -1,11 +1,10 @@
 server:
-  port: 8080
+  port: 8082
 
 appid:
   shenhua: 6
   guoan: 3
   taida: 5
-
 
 datasource:
   shenhua:
@@ -15,7 +14,7 @@ datasource:
     driverClass: com.mysql.jdbc.Driver
 
   taida:
-    url: jdbc:mysql://120.132.61.35/tianjinfc?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://120.132.61.35:3306/tianjinfc?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
     username: tjuser
     password: GbqTq9Vzdfj#9h
     driverClass: com.mysql.jdbc.Driver
@@ -27,6 +26,6 @@ datasource:
     driverClass: com.mysql.jdbc.Driver
 
 mybatis:
-    typeAliasesPackage: com.ninehcom
+    typeAliasesPackage: com.ninehcom.newsserver.entity
     mapperLocations: classpath:/sqlmaps/*.xml
     configLocation: classpath:/mybatis-config.xml

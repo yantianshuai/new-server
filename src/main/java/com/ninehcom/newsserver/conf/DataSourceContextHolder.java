@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ninehcom.common.utils;
+package com.ninehcom.newsserver.conf;
 
 
 import java.util.logging.Logger;
