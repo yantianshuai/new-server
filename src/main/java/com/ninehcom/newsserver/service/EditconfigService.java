@@ -112,6 +112,15 @@ public class EditconfigService {
         }
     }
 
+    public List<Editconfig> getValues(){
+        List<Editconfig> configs = editconfigMapper.selectAllEditconfig();
+        if (configs != null) {
+            return configs;
+        } else {
+            return null;
+        }
+    }
+
     public String getValue(ConfigKeys configKeys) {
         return getValue(configKeys.toString());
     }

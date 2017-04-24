@@ -1,9 +1,12 @@
 package com.ninehcom.newsserver.controller;
 
+import com.ninehcom.newsserver.entity.Editconfig;
 import com.ninehcom.newsserver.service.EditconfigService;
 import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Editconfig 的控制器，用于显示同时查询2个数据库的结果 * @author shenjizhe
@@ -25,4 +28,12 @@ public class EditconfigController {
             @RequestHeader(value = "appId") String appId) {
         return editconfigService.getConfigValue(key);
     }
+
+    @RequestMapping(value = "/configs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Editconfig> getConfig(
+            @RequestHeader(value = "appId") String appId) {
+        return editconfigService.getValues();
+    }
+
 }
