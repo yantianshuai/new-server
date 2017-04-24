@@ -1,8 +1,14 @@
 package com.ninehcom.newsserver.mapper;
 
 import com.ninehcom.newsserver.entity.Editconfig;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Editconfig的Mapper，用于Mybatis
@@ -10,21 +16,30 @@ import java.util.List;
  * @author shenjizhe
  * @version 1.0.0
  */
-public interface EditconfigMapper {
+@Repository
+public class EditconfigMapper {
 
-    List<Editconfig> selectAllEditconfig();
-    Editconfig selectEditconfig(String key);
-    int createEditConfigTable();
-    int initEditConfig(Editconfig config);
-    int createUserInfoTable();
-    
-    int createActionTable();
-    int createUserStatisticsTable();
-    int createUserActionTable();
-    int createUserScoreTable();
-    int createVersionTable();
+    @Autowired
+    @Qualifier("sqlSessionTemplate")
+    protected SqlSession sqlSession;
 
-    int initAction(int id, String name, String description, int score, int expressience);
-    int initVersion(int id, int type, String typeName, String version);
+    public List<Editconfig> selectAllEditconfig(){
+        return sqlSession.selectList("selectAllEditconfig");
+    }
+
+    public Editconfig selectEditconfig(String key){
+        Map<String,String> map = new HashMap<>();
+            map.put("key",key);
+        return sqlSession.selectOne("selectEditconfig",map);
+    }
+
+    public int initEditConfig(Editconfig config){
+        Map<String,String> map = new HashMap<>();
+            map.put("Id",String.valueOf(config.getId()));
+            map.put("Key",config.getKey());
+            map.put("Value",config.getValue());
+            map.put("Remark",config.getRemark());
+        return sqlSession.insert("initEditConfig",map);
+    }
 
 }

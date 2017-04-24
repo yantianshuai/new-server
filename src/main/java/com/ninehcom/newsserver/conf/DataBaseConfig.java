@@ -1,6 +1,7 @@
 package com.ninehcom.newsserver.conf;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.ninehcom.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,16 +54,7 @@ public class DataBaseConfig {
     @Bean(name = "getDataSources")
     public Map<Object,Object> getDataSources() throws PropertyVetoException, IOException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Map<Object, Object> targetDataSources = new HashMap<Object, Object>();
-//        Properties properties = new Properties();
-//        properties.load(DataBaseConfig.class.getClassLoader().getResourceAsStream("appid-clubid.properties"));
-//        Set<Object> set = properties.keySet();
-//        DataBaseConfig dataBaseConfig = DataBaseConfig.class.newInstance();
-//        for (Object obj:set
-//                ) {
-//            Method method = dataBaseConfig.getClass().getDeclaredMethod(String.valueOf(properties.get(obj)));
-//            DataSource d = (DataSource) method.invoke(dataBaseConfig);
-//            targetDataSources.put(properties.get(obj),d);
-//        }
+
         targetDataSources.put(DataSourceType.gaDataSource.getType(),gaDataSource());
         targetDataSources.put(DataSourceType.tdDataSource.getType(),tdDataSource());
         targetDataSources.put(DataSourceType.shDataSource.getType(),shDataSource());

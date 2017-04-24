@@ -1,4 +1,4 @@
-package com.ninehcom.newsserver.conf;
+package com.ninehcom.common.enums;
 
 
 

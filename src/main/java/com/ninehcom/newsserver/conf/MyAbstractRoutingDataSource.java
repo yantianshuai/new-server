@@ -8,12 +8,6 @@ import java.util.logging.Logger;
  */
 public class MyAbstractRoutingDataSource extends AbstractRoutingDataSource {
     private static final Logger LOG = Logger.getLogger(MyAbstractRoutingDataSource.class.getName());
-//    private final int dataSourceNumber;
-//    private AtomicInteger count = new AtomicInteger(0);
-
-//    public MyAbstractRoutingDataSource(int dataSourceNumber) {
-//        this.dataSourceNumber = dataSourceNumber;
-//    }
 
     @Override
     protected Object determineCurrentLookupKey() {

@@ -3,7 +3,7 @@ package com.ninehcom.newsserver.conf;
 import java.util.logging.Logger;
 
 /**
- * Created by Administrator on 2016/11/11.
+ * Created by zhangbin on 2017/04/24.
  */
 public class DataSourceContextHolder {
     private static final Logger LOG = Logger.getLogger(DataSourceContextHolder.class.getName());

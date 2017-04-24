@@ -1,9 +1,9 @@
 package com.ninehcom.newsserver.conf;
 
-import com.ninehcom.newsserver.mapper.EditconfigMapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -16,9 +16,10 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/11/2.
+ * Created by zhangbin on 2017/04/24.
  */
 @Configuration
+@MapperScan(basePackages={"com.ninehcom.newsserver"})
 @AutoConfigureAfter({ DataBaseConfig.class })
 public class MybatisConfig {
     @Value("${mybatis.typeAliasesPackage}")
@@ -76,14 +77,4 @@ public class MybatisConfig {
         sqlSessionTemplate  = new SqlSessionTemplate(SqlSessionFactory());
         return sqlSessionTemplate;
     }
-
-
-    @Bean
-    public EditconfigMapper editconfigMapper(){
-        return sqlSessionTemplate.getMapper(com.ninehcom.newsserver.mapper.EditconfigMapper.class);
-    }
-
-
-
-
 }

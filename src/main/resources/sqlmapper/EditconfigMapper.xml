@@ -20,7 +20,7 @@
         FROM 
         editconfig
         where 
-        editconfig.Key = #{0}
+        editconfig.Key = #{key}
     </select>
     <update id="createActionTable">
         CREATE TABLE IF NOT EXISTS `action` (
