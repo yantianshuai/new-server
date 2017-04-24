@@ -1,6 +1,5 @@
 package com.ninehcom.newsserver.entity;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;

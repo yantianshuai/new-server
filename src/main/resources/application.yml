@@ -1,31 +1,26 @@
 server:
   port: 8082
 
-appid:
-  shenhua: 6
-  guoan: 3
-  taida: 5
-
-datasource:
-  shenhua:
-    url: jdbc:mysql://123.59.138.131:3306/shanghaifc?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
-    username: shuser
-    password: j4R71LmKjf#9h
-    driverClass: com.mysql.jdbc.Driver
-
-  taida:
-    url: jdbc:mysql://120.132.61.35:3306/tianjinfc?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
-    username: tjuser
-    password: GbqTq9Vzdfj#9h
-    driverClass: com.mysql.jdbc.Driver
-
-  guoan:
-    url: jdbc:mysql://123.59.84.66:3306/guoan_new?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&zeroDateTimeBehavior=convertToNull
-    username: guoan
-    password: rr7ZKIqHsdfje$9h
-    driverClass: com.mysql.jdbc.Driver
+#国安测试库
+guoan_test:
+  url: jdbc:mysql://123.59.84.66:3306/guoan_new?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+  driverClass: com.mysql.jdbc.Driver
+  user: guoan
+  password: rr7ZKIqHsdfje$9h
+#泰达测试库
+td_test:
+  url: jdbc:mysql://120.132.61.35:3306/tianjinfc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+  driverClass: com.mysql.jdbc.Driver
+  user: tjuser
+  password: GbqTq9Vzdfj#9h
+#申花测试库
+sh_test:
+  url: jdbc:mysql://123.59.138.131:3306/shanghaifc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+  driverClass: com.mysql.jdbc.Driver
+  user: shuser
+  password: j4R71LmKjf#9h
 
 mybatis:
-    typeAliasesPackage: com.ninehcom.newsserver.entity
-    mapperLocations: classpath:/sqlmaps/*.xml
-    configLocation: classpath:/mybatis-config.xml
+  typeAliasesPackage: com.ninehcom
+  mapperLocations: classpath:/sqlmapper/*.xml
+  configLocation: classpath:/mybatis-config.xml

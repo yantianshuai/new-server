@@ -1,7 +1,6 @@
 package com.ninehcom.newsserver.controller;
 
-
-import com.ninehcom.newsserver.server.EditconfigService;
+import com.ninehcom.newsserver.service.EditconfigService;
 import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0.0
  */
 @RestController
-@RequestMapping(value = "/news")
+@RequestMapping(value = "/users")
 public class EditconfigController {
 
     @Autowired
