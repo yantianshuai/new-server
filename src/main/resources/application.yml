@@ -1,5 +1,13 @@
 server:
-  port: 8082
+  port: 8083
+
+
+DataSourceInfo:
+#需要切换的数据源的appId
+  app_id:
+    6: shDataSource
+    3: gaDataSource
+    5: tdDataSource
 
 #国安测试库
 guoan_test:

@@ -65,17 +65,17 @@ public class DataBaseConfig {
     @Bean(name = "gaDataSource")
     @Primary
     public DataSource gaDataSource() throws PropertyVetoException {
-        return create(gaUrl,gaDriverClass,gaUser,gaPass);
+        return createDataSource(gaUrl,gaDriverClass,gaUser,gaPass);
     }
     @Bean(name = "shDataSource")
     public DataSource shDataSource() throws PropertyVetoException {
-        return create(shUrl,shDriveClass,shUser,shPass);
+        return createDataSource(shUrl,shDriveClass,shUser,shPass);
     }
     @Bean(name = "tdDataSource")
     public DataSource tdDataSource() throws PropertyVetoException {
-        return create(tdUrl,tdDriveClass,tdUser,tdPass);
+        return createDataSource(tdUrl,tdDriveClass,tdUser,tdPass);
     }
-    public DataSource create(String url,String driveClass,String user,String pass) throws PropertyVetoException {
+    public DataSource createDataSource(String url,String driveClass,String user,String pass) throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setJdbcUrl(url);
         dataSource.setDriverClass(driveClass);
