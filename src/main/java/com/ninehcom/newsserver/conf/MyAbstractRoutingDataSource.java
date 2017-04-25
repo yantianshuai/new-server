@@ -4,7 +4,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import java.util.logging.Logger;
 
 /**
- * Created by Administrator on 2016/11/11.
+ * Created by zhangbin on 2016/11/11.
  */
 public class MyAbstractRoutingDataSource extends AbstractRoutingDataSource {
     private static final Logger LOG = Logger.getLogger(MyAbstractRoutingDataSource.class.getName());

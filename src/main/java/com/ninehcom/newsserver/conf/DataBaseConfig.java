@@ -2,23 +2,20 @@ package com.ninehcom.newsserver.conf;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.ninehcom.common.enums.DataSourceType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by zhangbin on 2017/4/25.
+ * 配置数据库信息；
  */
 @Component
 @ConfigurationProperties(prefix = "data_source_info")
