@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/news")
 public class EditconfigController {
 
     @Autowired

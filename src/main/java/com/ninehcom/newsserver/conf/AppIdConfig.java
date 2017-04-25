@@ -12,7 +12,7 @@ import java.util.Map;
  * 获取配置文件中各个俱乐部appid的集合
  */
 @Component
-@ConfigurationProperties(prefix = "DataSourceInfo")
+@ConfigurationProperties(prefix = "data_source_info")
 public class AppIdConfig {
 
     private Map<String, String> app_id = new HashMap<>();

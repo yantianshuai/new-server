@@ -2,54 +2,34 @@ package com.ninehcom.newsserver.conf;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.ninehcom.common.enums.DataSourceType;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.stereotype.Component;
+
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/11/2.
+ * Created by zhangbin on 2017/4/25.
  */
-@Configuration
-@EnableTransactionManagement
+@Component
+@ConfigurationProperties(prefix = "data_source_info")
 public class DataBaseConfig {
-    @Value("${guoan_test.url}")
-    private String gaUrl;
-    @Value("${sh_test.url}")
-    private String shUrl;
-    @Value("${td_test.url}")
-    private String tdUrl;
 
+    private Map<String,String> guoan = new HashMap<>();
 
-    @Value("${guoan_test.driverClass}")
-    private String gaDriverClass;
-    @Value("${sh_test.driverClass}")
-    private String shDriveClass;
-    @Value("${td_test.driverClass}")
-    private String tdDriveClass;
+    private Map<String,String> taida = new HashMap<>();
 
+    private Map<String,String> shenhua = new HashMap<>();
 
-    @Value("${guoan_test.user}")
-    private String gaUser;
-    @Value("${sh_test.user}")
-    private String shUser;
-    @Value("${td_test.user}")
-    private String tdUser;
-
-
-    @Value("${guoan_test.password}")
-    private String gaPass;
-    @Value("${sh_test.password}")
-    private String shPass;
-    @Value("${td_test.password}")
-    private String tdPass;
 
     @Bean(name = "getDataSources")
     public Map<Object,Object> getDataSources() throws PropertyVetoException, IOException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
@@ -65,15 +45,33 @@ public class DataBaseConfig {
     @Bean(name = "gaDataSource")
     @Primary
     public DataSource gaDataSource() throws PropertyVetoException {
-        return createDataSource(gaUrl,gaDriverClass,gaUser,gaPass);
+        Map<String,String> guoanDB = getGuoan();
+        return createDataSource(
+                guoanDB.get("url"),
+                guoanDB.get("driverClass"),
+                guoanDB.get("user"),
+                guoanDB.get("password")
+        );
     }
     @Bean(name = "shDataSource")
     public DataSource shDataSource() throws PropertyVetoException {
-        return createDataSource(shUrl,shDriveClass,shUser,shPass);
+        Map<String,String> shenhuaDB = getShenhua();
+        return createDataSource(
+                shenhuaDB.get("url"),
+                shenhuaDB.get("driverClass"),
+                shenhuaDB.get("user"),
+                shenhuaDB.get("password")
+        );
     }
     @Bean(name = "tdDataSource")
     public DataSource tdDataSource() throws PropertyVetoException {
-        return createDataSource(tdUrl,tdDriveClass,tdUser,tdPass);
+        Map<String,String> taidaDB = getTaida();
+        return createDataSource(
+                taidaDB.get("url"),
+                taidaDB.get("driverClass"),
+                taidaDB.get("user"),
+                taidaDB.get("password")
+        );
     }
     public DataSource createDataSource(String url,String driveClass,String user,String pass) throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -86,5 +84,29 @@ public class DataBaseConfig {
         dataSource.setMaxPoolSize(10);
         dataSource.setIdleConnectionTestPeriod(3000);
         return dataSource;
+    }
+
+    public Map<String, String> getGuoan() {
+        return guoan;
+    }
+
+    public void setGuoan(Map<String, String> guoan) {
+        this.guoan = guoan;
+    }
+
+    public Map<String, String> getTaida() {
+        return taida;
+    }
+
+    public void setTaida(Map<String, String> taida) {
+        this.taida = taida;
+    }
+
+    public Map<String, String> getShenhua() {
+        return shenhua;
+    }
+
+    public void setShenhua(Map<String, String> shenhua) {
+        this.shenhua = shenhua;
     }
 }

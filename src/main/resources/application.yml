@@ -1,32 +1,31 @@
 server:
   port: 8083
 
-
-DataSourceInfo:
+data_source_info:
 #需要切换的数据源的appId
   app_id:
     6: shDataSource
     3: gaDataSource
     5: tdDataSource
 
-#国安测试库
-guoan_test:
-  url: jdbc:mysql://123.59.84.66:3306/guoan_new?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
-  driverClass: com.mysql.jdbc.Driver
-  user: guoan
-  password: rr7ZKIqHsdfje$9h
-#泰达测试库
-td_test:
-  url: jdbc:mysql://120.132.61.35:3306/tianjinfc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
-  driverClass: com.mysql.jdbc.Driver
-  user: tjuser
-  password: GbqTq9Vzdfj#9h
-#申花测试库
-sh_test:
-  url: jdbc:mysql://123.59.138.131:3306/shanghaifc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
-  driverClass: com.mysql.jdbc.Driver
-  user: shuser
-  password: j4R71LmKjf#9h
+  #国安
+  guoan:
+    url: jdbc:mysql://123.59.84.66:3306/guoan_new?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    driverClass: com.mysql.jdbc.Driver
+    user: guoan
+    password: rr7ZKIqHsdfje$9h
+  #泰达
+  taida:
+    url: jdbc:mysql://120.132.61.35:3306/tianjinfc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    driverClass: com.mysql.jdbc.Driver
+    user: tjuser
+    password: GbqTq9Vzdfj#9h
+  #申花
+  shenhua:
+    url: jdbc:mysql://123.59.138.131:3306/shanghaifc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    driverClass: com.mysql.jdbc.Driver
+    user: shuser
+    password: j4R71LmKjf#9h
 
 mybatis:
   typeAliasesPackage: com.ninehcom
