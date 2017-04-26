@@ -9,7 +9,7 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Aspect
@@ -23,18 +23,33 @@ public class DataSourceAop {
     @Around("execution(* com.ninehcom.newsserver.controller..*.*(..))")
     public Object setWriteDataSourceType(ProceedingJoinPoint thisJoinPoint) throws Throwable {
         //获取参数值
-        Object[] objects = thisJoinPoint.getArgs();
+        List paramValueList = Arrays.asList(thisJoinPoint.getArgs());
         //获取传入的参数名
-        String[] paramNames = ((CodeSignature) thisJoinPoint.getStaticPart().getSignature()).getParameterNames();
+        List paramNamesList = Arrays.asList(((CodeSignature) thisJoinPoint.getStaticPart().getSignature()).getParameterNames());
+        Map<String,String> paramValueMap = new HashMap<>();
+        for(int i=0;i<paramNamesList.size();i++){
+            paramValueMap.put(String.valueOf(paramNamesList.get(i)),String.valueOf(paramValueList.get(i)));
+        }
+
         //获取配置表中对应的appid对应表
         Map<String,String> appIdMap = appIdConfig.getApp_id();
-        for (int i = 0; i < paramNames.length; i++) {
-            if ("appId".equals(paramNames[i])){
-                String dasourceType= appIdMap.get(String.valueOf(objects[i]));
-                log.info("dasourceType========="+dasourceType);
-                DataSourceContextHolder.setDataSource(dasourceType);
-            }
+
+        //获取传入的AppId参数对应的值
+        String paramAppIdValue = paramValueMap.get("appId");
+
+        if(appIdMap.containsKey(paramAppIdValue)){
+            String dasourceType = appIdMap.get(paramAppIdValue);
+            log.info("dasourceType========="+dasourceType);
+            DataSourceContextHolder.setDataSource(dasourceType);
         }
+//        for (int i = 0; i < paramNames.length; i++) {
+//            if ("appId".equals(paramNames[i])){
+//                String dasourceType= appIdMap.get(String.valueOf(objects[i]));
+//                log.info("dasourceType========="+dasourceType);
+//                DataSourceContextHolder.setDataSource(dasourceType);
+//            }
+//        }
+//        List paramList = Arrays.asList(paramNames);
         return thisJoinPoint.proceed();
     }
 }
