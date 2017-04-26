@@ -22,10 +22,11 @@ public class DataSourceAop {
 
     @Around("execution(* com.ninehcom.newsserver.controller..*.*(..))")
     public Object setWriteDataSourceType(ProceedingJoinPoint thisJoinPoint) throws Throwable {
-        //获取参数值
+        //获取传入的参数值
         List paramValueList = Arrays.asList(thisJoinPoint.getArgs());
         //获取传入的参数名
         List paramNamesList = Arrays.asList(((CodeSignature) thisJoinPoint.getStaticPart().getSignature()).getParameterNames());
+        //传入的参数名和参数值装配成Map
         Map<String,String> paramValueMap = new HashMap<>();
         for(int i=0;i<paramNamesList.size();i++){
             paramValueMap.put(String.valueOf(paramNamesList.get(i)),String.valueOf(paramValueList.get(i)));
@@ -42,14 +43,6 @@ public class DataSourceAop {
             log.info("dasourceType========="+dasourceType);
             DataSourceContextHolder.setDataSource(dasourceType);
         }
-//        for (int i = 0; i < paramNames.length; i++) {
-//            if ("appId".equals(paramNames[i])){
-//                String dasourceType= appIdMap.get(String.valueOf(objects[i]));
-//                log.info("dasourceType========="+dasourceType);
-//                DataSourceContextHolder.setDataSource(dasourceType);
-//            }
-//        }
-//        List paramList = Arrays.asList(paramNames);
         return thisJoinPoint.proceed();
     }
 }
