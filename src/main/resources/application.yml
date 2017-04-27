@@ -27,7 +27,12 @@ data_source_info:
     user: shuser
     password: j4R71LmKjf#9h
 
+
 mybatis:
   typeAliasesPackage: com.ninehcom
   mapperLocations: classpath:/sqlmapper/*.xml
   configLocation: classpath:/mybatis-config.xml
+
+#敏感词检测
+sensitive:
+    checkUrl: http://123.59.84.71:8083/check

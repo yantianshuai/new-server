@@ -17,11 +17,7 @@ import java.util.Map;
  * @version 1.0.0
  */
 @Repository
-public class EditconfigMapper {
-
-    @Autowired
-    @Qualifier("sqlSessionTemplate")
-    protected SqlSession sqlSession;
+public class EditconfigMapper extends BaseMapper{
 
     public List<Editconfig> selectAllEditconfig(){
         return sqlSession.selectList("selectAllEditconfig");
