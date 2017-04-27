@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.parsing.ReaderContext;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,20 +28,23 @@ import java.util.List;
 @Service
 public class EditconfigService {
 
-//    private Map<String, String> mapping = null;
     @Autowired
     private EditconfigMapper editconfigMapper;
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private void initConfig(Editconfig config) {
-        try {
-            editconfigMapper.initEditConfig(config);
-        } catch (Exception ex) {
+    public static int ClubID;
 
-        }
+    @PostConstruct
+    public void init(){
+        ClubID = Integer.parseInt(getValueById(ConfigKeys.TeamId));
     }
 
-    public Result getConfigValue(String key) {
+    /**
+     * 通过key获取指定的配置文件
+     * @param key
+     * @return
+     */
+    public Result getValueById(String key) {
         Editconfig config = editconfigMapper.selectEditconfig(key);
         if (config != null) {
             return Result.Success(config.getValue());
@@ -48,17 +52,15 @@ public class EditconfigService {
             return Result.Success();
         }
     }
-
-    private String getValue(String key) {
-        Editconfig config = editconfigMapper.selectEditconfig(key);
-        if (config != null) {
-            return config.getValue();
-        } else {
-            return null;
-        }
+    public String getValueById(ConfigKeys configKeys) {
+        return getValueById(configKeys.toString()).getTag().toString();
     }
 
-    public Result getValues(){
+    /**
+     * 获取全部的配置文件，包括客户端不可见的配置项
+     * @return
+     */
+    public Result selectAllEditConfig(){
         ArrayList<Editconfig> configs = (ArrayList<Editconfig>) editconfigMapper.selectAllEditconfig();
         if (configs != null) {
             return Result.Success(configs);
@@ -67,47 +69,15 @@ public class EditconfigService {
         }
     }
 
-    public String getValue(ConfigKeys configKeys) {
-        return getValue(configKeys.toString());
+    /**
+     * 获取只有客户端可见的配置项
+     * @return
+     */
+    public Result selectClientEditconfig() {
+        ArrayList<Editconfig> editconfigs = (ArrayList<Editconfig>) editconfigMapper.selectClientEditconfig();
+        return Result.Success(editconfigs);
     }
 
-    public Date getDate(ConfigKeys configkeys) {
-        try {
-            return format.parse(getValue(configkeys));
-        } catch (ParseException ex) {
-            return null;
-        }
-    }
 
-    public Integer getInt(ConfigKeys configkeys) {
-        return Integer.parseInt(getValue(configkeys));
-    }
 
-    public Double getDouble(ConfigKeys configkeys) {
-        return Double.parseDouble(getValue(configkeys));
-    }
-
-    public Float getFloat(ConfigKeys configkeys) {
-        return Float.parseFloat(getValue(configkeys));
-    }
-
-    public Long getLong(ConfigKeys configkeys) {
-        return Long.parseLong(getValue(configkeys));
-    }
-
-    public JSONObject getJson(ConfigKeys configkeys) {
-        try {
-            return new JSONObject(getValue(configkeys));
-        } catch (JSONException ex) {
-            return null;
-        }
-    }
-
-    public JSONArray getJsonArray(ConfigKeys configkeys) {
-        try {
-            return new JSONArray(getValue(configkeys));
-        } catch (JSONException ex) {
-            return null;
-        }
-    }
 }

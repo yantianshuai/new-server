@@ -19,23 +19,31 @@ import java.util.Map;
 @Repository
 public class EditconfigMapper extends BaseMapper{
 
+    /**
+     * 获取全部的配置项
+     * @return
+     */
     public List<Editconfig> selectAllEditconfig(){
         return sqlSession.selectList("selectAllEditconfig");
     }
 
+    /**
+     * 根据指定的KEY获取指定的配置项
+     * @param key
+     * @return
+     */
     public Editconfig selectEditconfig(String key){
         Map<String,String> map = new HashMap<>();
             map.put("key",key);
         return sqlSession.selectOne("selectEditconfig",map);
     }
 
-    public int initEditConfig(Editconfig config){
-        Map<String,String> map = new HashMap<>();
-            map.put("Id",String.valueOf(config.getId()));
-            map.put("Key",config.getKey());
-            map.put("Value",config.getValue());
-            map.put("Remark",config.getRemark());
-        return sqlSession.insert("initEditConfig",map);
+    /**
+     * 获取客户端需要（ClientNeed=1）的配置项
+     * @return
+     */
+    public List<Editconfig> selectClientEditconfig(){
+        return sqlSession.selectList("selectClientEditconfig");
     }
 
 }

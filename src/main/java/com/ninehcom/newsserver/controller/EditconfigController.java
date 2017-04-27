@@ -29,7 +29,7 @@ public class EditconfigController {
             @ApiParam(value = "配置键", defaultValue = "")
             @PathVariable("key") String key,
             @RequestHeader(value = "appId") String appId) {
-        return editconfigService.getConfigValue(key);
+        return editconfigService.getValueById(key);
     }
 
     @ApiOperation(value = "获取全部的配置项",notes = "获取全部的配置项",position = 2)
@@ -37,7 +37,7 @@ public class EditconfigController {
     @ResponseBody
     public Result getConfig(
             @RequestHeader(value = "appId") String appId) {
-        return editconfigService.getValues();
+        return editconfigService.selectClientEditconfig();
     }
 
 }
