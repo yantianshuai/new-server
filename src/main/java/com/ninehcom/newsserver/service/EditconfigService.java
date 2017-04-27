@@ -1,5 +1,6 @@
 package com.ninehcom.newsserver.service;
 
+import com.ninehcom.common.untils.Result;
 import com.ninehcom.newsserver.entity.Editconfig;
 import com.ninehcom.common.enums.ConfigKeys;
 import com.ninehcom.newsserver.mapper.EditconfigMapper;
@@ -7,11 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.parsing.ReaderContext;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,12 +40,12 @@ public class EditconfigService {
         }
     }
 
-    public String getConfigValue(String key) {
+    public Result getConfigValue(String key) {
         Editconfig config = editconfigMapper.selectEditconfig(key);
         if (config != null) {
-            return config.getValue();
+            return Result.Success(config.getValue());
         } else {
-            return null;
+            return Result.Success();
         }
     }
 
@@ -55,10 +58,10 @@ public class EditconfigService {
         }
     }
 
-    public List<Editconfig> getValues(){
-        List<Editconfig> configs = editconfigMapper.selectAllEditconfig();
+    public Result getValues(){
+        ArrayList<Editconfig> configs = (ArrayList<Editconfig>) editconfigMapper.selectAllEditconfig();
         if (configs != null) {
-            return configs;
+            return Result.Success(configs);
         } else {
             return null;
         }

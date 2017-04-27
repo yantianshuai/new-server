@@ -1,5 +1,6 @@
 package com.ninehcom.newsserver.controller;
 
+import com.ninehcom.common.untils.Result;
 import com.ninehcom.newsserver.entity.Advert;
 import com.ninehcom.newsserver.service.AdvertService;
 import com.wordnik.swagger.annotations.Api;
@@ -14,7 +15,7 @@ import java.util.List;
  * Advert 的控制器，用于显示同时查询2个数据库的结果 * @author shenjizhe
  * @version 1.0.0
  */
-@Api(basePath = "/newsserver",value = "俱乐部",description = "俱乐部",produces = "application/json")
+@Api(basePath = "/newsserver",value = "新闻服务",description = "新闻服务",produces = "application/json")
 @RestController
 @RequestMapping(value = "/newsserver")
 public class AdvertController {
@@ -25,7 +26,7 @@ public class AdvertController {
     @ApiOperation(value="查询所有的广告",notes = "查询所有的广告",position = 1)
     @RequestMapping(value = "/advert", method = RequestMethod.GET)
     @ResponseBody
-    public List<Advert> selectAllAdvert(
+    public Result selectAllAdvert(
             @RequestHeader(value = "appId",required = true)
             String appId
     ) {

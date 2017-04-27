@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Created by zhangbin on 2017/4/24.
- * 获取配置文件中各个俱乐部appid的集合
+ * 获取配置文件中各个新闻服务appid的集合
  */
 @Component
 @ConfigurationProperties(prefix = "data_source_info")

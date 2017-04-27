@@ -1,10 +1,12 @@
 package com.ninehcom.newsserver.service;
 
+import com.ninehcom.common.untils.Result;
 import com.ninehcom.newsserver.entity.Advert;
 import com.ninehcom.newsserver.mapper.AdvertMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +19,8 @@ public class AdvertService {
 
     @Autowired
     private  AdvertMapper  advertMapper;
-    public List<Advert> selectAllAdvert() {
-        List<Advert> advertList = advertMapper.selectAllAdvert();
-        return advertList;
+    public Result selectAllAdvert() {
+        ArrayList<Advert> advertList = (ArrayList)advertMapper.selectAllAdvert();
+        return Result.Success(advertList);
     }
 }
