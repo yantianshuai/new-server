@@ -1,6 +1,7 @@
 package com.ninehcom.newsserver.service;
 
 import com.ninehcom.common.untils.Result;
+import com.ninehcom.newsserver.conf.DataBaseConfig;
 import com.ninehcom.newsserver.entity.Editconfig;
 import com.ninehcom.common.enums.ConfigKeys;
 import com.ninehcom.newsserver.mapper.EditconfigMapper;
@@ -9,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.parsing.ReaderContext;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -26,18 +28,19 @@ import java.util.List;
  * @version 1.0.0
  */
 @Service
+@AutoConfigureAfter({ DataBaseConfig.class })
 public class EditconfigService {
 
     @Autowired
     private EditconfigMapper editconfigMapper;
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public static int ClubID;
-
-    @PostConstruct
-    public void init(){
-        ClubID = Integer.parseInt(getValueById(ConfigKeys.TeamId));
-    }
+//    public static int ClubID;
+//
+//    @PostConstruct
+//    public void init(){
+//        ClubID = Integer.parseInt(getValueById(ConfigKeys.TeamId));
+//    }
 
     /**
      * 通过key获取指定的配置文件

@@ -7,7 +7,6 @@ data_source_info:
     6: shDataSource
     3: gaDataSource
     5: tdDataSource
-
   #国安
   guoan:
     url: jdbc:mysql://123.59.84.66:3306/guoan_new?autoReconnect=true&useUnicode=true&characterEncoding=utf-8

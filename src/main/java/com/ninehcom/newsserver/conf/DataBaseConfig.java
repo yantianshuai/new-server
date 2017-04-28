@@ -1,11 +1,14 @@
 package com.ninehcom.newsserver.conf;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.ninehcom.common.enums.ConfigKeys;
 import com.ninehcom.common.enums.DataSourceType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
