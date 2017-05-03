@@ -27,13 +27,14 @@ public class NewsController {
      * @param page
      * @return
      */
-    @ApiOperation(value = "按照类型取得新闻列表",notes = "按照类型取得新闻列表",position = 1)
+    @ApiOperation(value = "按照新闻类型,取得新闻列表",notes = "按照新闻类型,取得新闻列表",position = 1)
     @RequestMapping(value = "/news/{news_type}", method = RequestMethod.GET)
     public Result selectNewsByType(
             @ApiParam(value = "新闻类型",required = false,name = "news_type")
             @PathVariable("news_type")
             int typeId,
             PageRequest page,
+            @ApiParam(value = "特定的appId",required = false,name = "appId")
             @RequestHeader(value = "appId")
             String appId
     ) {
@@ -45,12 +46,13 @@ public class NewsController {
      *
      * @param newsId 新闻ID
      */
-    @ApiOperation(value = "按照ID记录阅读次数",notes = "按照ID记录阅读次数",position = 2)
+    @ApiOperation(value = "根据新闻id，更新指定新闻的阅读次数",notes = "根据新闻id，更新指定新闻的阅读次数",position = 2)
     @RequestMapping(value = "/news/times/{news_id}", method = RequestMethod.POST)
     public Result updateNewsReadTimes(
             @ApiParam(value = "新闻id",required = false,name = "news_id")
             @PathVariable("news_id")
             int newsId,
+            @ApiParam(value = "特定的appId",required = false,name = "appId")
             @RequestHeader(value = "appId")
             String appId
     ) {
