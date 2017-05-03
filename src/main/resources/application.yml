@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8084
 
 data_source_info:
 #需要切换的数据源的appId

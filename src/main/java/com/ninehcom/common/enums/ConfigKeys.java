@@ -12,22 +12,12 @@ package com.ninehcom.common.enums;
 public enum ConfigKeys {
 
     TeamId("TeamId"),
-    UserUrl("UserUrl"),
-    AppID("AppID"),
-    SmsUrl("SmsUrl"),
-    AndroidLoadURL("AndroidLoadURL"),
-    IOSLoadURL("IOSLoadURL"),
-    SensitiveWordURL("SensitiveWordURL"),
-    SearchURL("SearchURL"),
-    NickNameMaxChangeTime("NickNameMaxChangeTime"),
-    MaxScore("MaxScore"),
-    MaxExperience("MaxExperience"),
-    CheckCodeText("CheckCodeText"),
-    SendGroupText("SendGroupText"),
-    CampaignEndTime("CampaignEndTime"),
-    CampaignStartTime("CampaignStartTime"),
-    SystemStartTime("SystemStartTime"),
-    EnterJoinUser("EnterJoinUser"),
+    HistoryCountLimit("HistoryCountLimit"),
+    RollCount("RollCount"),
+    HomeNewsCount("HomeNewsCount"),
+    ReadTimes("ReadTimes"),
+    NewsCommentNotify("NewsCommentNotify"),
+    SensitiveWordURL("SensitiveWordURL")
     ;
     private String key;
 

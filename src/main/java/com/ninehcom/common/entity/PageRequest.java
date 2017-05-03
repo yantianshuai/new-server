@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.ninehcom.common.entity;
+import com.wordnik.swagger.annotations.ApiModel;
 import org.springframework.data.domain.Sort.Direction;
 
 /**

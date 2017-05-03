@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ninehcom.newsserver.mapper.NewsMapper">
+    <resultMap type="com.ninehcom.newsserver.entity.News" id="newsMap">
+        <id column="Id" property="Id"/>
+        <result column="NewsTypeId" property="NewsTypeId"/>
+        <result column="NewsTypeName" property="NewsTypeName"/>
+        <result column="ModeTypeId" property="ModeTypeId"/>
+        <result column="Logo" property="Logo"/>
+        <result column="Title" property="Title"/>
+        <result column="Abstracts" property="Abstracts"/>
+        <result column="Contents" property="Contents"/>
+        <result column="Links" property="Links"/>
+        <result column="ReadTimes" property="ReadTimes"/>
+        <result column="SourceId" property="SourceId"/>
+        <result column="SourceName" property="SourceName"/>
+        <result column="CreateTime" property="CreateTime"/>
+        <result column="UpdateTime" property="UpdateTime"/>
+        <result column="PublishTime" property="PublishTime"/>
+        <result column="CanComment" property="CanComment"/>
+    </resultMap>
+    <select id="selectNewsByType" resultMap="newsMap">
+        SELECT
+        * 
+        FROM
+        news
+        WHERE
+        ViewInApp =1
+        <if test="typeId != 0">
+            AND
+            news.NewsTypeId = #{typeId}
+        </if>
+        <if test="direction =='DESC'">
+            ORDER BY
+            PublishTime DESC
+        </if>
+        <if test="direction =='ASC'">
+            ORDER BY
+            PublishTime ASC
+        </if>
+        <if test="needPage == 'true'">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+    <select id="selectNewsCountByType"  parameterType="int" resultType="int">
+        SELECT
+        COUNT(*) 
+        FROM
+        news
+        WHERE
+        ViewInApp =1
+        <if test="_parameter!=0">
+            AND
+            news.NewsTypeId = #{0}
+        </if>
+    </select>
+    <select id="selectNewsByID"  parameterType="int" resultMap="newsMap">
+        select
+        *
+        FROM
+        news
+        WHERE
+        Id = #{0}
+    </select>
+    <update id="updateNewsReadTimes">
+        update
+        news
+        set ReadTimes = ReadTimes+#{count}
+        where Id =#{newsId}
+    </update>
+    <update id="updateNewsCommentCount">
+        UPDATE
+        news
+        SET CommentCount = CommentCount+1
+        WHERE Id = #{0}
+    </update>
+</mapper>
+
