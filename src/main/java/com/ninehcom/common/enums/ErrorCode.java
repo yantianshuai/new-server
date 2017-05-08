@@ -70,7 +70,8 @@ public enum ErrorCode {
     NewsCommentPraiseIdError(71016,"取消点赞失败，相应的赞记录与传入的praise_id不匹配"),
     NewsCommentPraiseUserIdNull(71017,"此处的用户id不能为空"),
     NewsCommentIdNull(71018,"此处的评论id不能为空"),
-    NewsIsNull(71019,"请求的新闻不存在")
+    NewsIsNull(71019,"请求的新闻不存在"),
+    NewsCommentIsClose(71020,"当前新闻评论功能未开通")
     ;
     private int code;
     private String message;

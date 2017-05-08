@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static sun.plugin.javascript.navig.JSType.Document;
 
 /**
  * News的Service

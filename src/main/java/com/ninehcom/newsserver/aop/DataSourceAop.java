@@ -1,5 +1,7 @@
 package com.ninehcom.newsserver.aop;
 
+import com.ninehcom.common.enums.ErrorCode;
+import com.ninehcom.common.untils.Result;
 import com.ninehcom.newsserver.conf.AppIdConfig;
 import com.ninehcom.newsserver.conf.DataSourceContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -21,7 +24,7 @@ public class DataSourceAop {
     AppIdConfig appIdConfig;
 
     @Around("execution(* com.ninehcom.newsserver.controller..*.*(..))")
-    public Object setWriteDataSourceType(ProceedingJoinPoint thisJoinPoint) throws Throwable {
+    public Object setWriteDataSourceType(ProceedingJoinPoint thisJoinPoint) throws Throwable,Exception {
         //获取传入的参数值
         List paramValueList = Arrays.asList(thisJoinPoint.getArgs());
         //获取传入的参数名
@@ -42,7 +45,10 @@ public class DataSourceAop {
             String dasourceType = appIdMap.get(paramAppIdValue);
             log.info("dasourceType========="+dasourceType);
             DataSourceContextHolder.setDataSource(dasourceType);
+        }else{
+            throw new Exception(ErrorCode.Fail.getMessage());
         }
         return thisJoinPoint.proceed();
     }
+
 }

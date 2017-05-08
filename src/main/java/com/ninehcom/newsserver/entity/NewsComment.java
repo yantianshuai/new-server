@@ -1,7 +1,5 @@
 package com.ninehcom.newsserver.entity;
 
-import com.ninehcom.newsserver.entity.User;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -28,6 +26,9 @@ public class NewsComment implements Serializable{
     private Integer praise_id;          //点赞的id,如果此评论 与 当前用户有点赞的关系 则返回点赞的id
 
     private User author;                //当前评论者
+//    private String user_nickname;       //当前评论的发出者昵称
+//    private String user_iconurl;        //当前评论发出者的头像地址
+//    private ArrayList<Tag> user_tags;   //当前评论发出者的标签集合
     private NewsComment ref_news_comment;  //上一级评论，如果评论的是评论，则把被评的评论对象存在此处返出去
 
 

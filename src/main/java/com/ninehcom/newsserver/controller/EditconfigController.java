@@ -28,7 +28,10 @@ public class EditconfigController {
     public Result getConfig(
             @ApiParam(value = "配置键", defaultValue = "")
             @PathVariable("key") String key,
-            @RequestHeader(value = "appId") String appId) {
+            @ApiParam(value = "特定的appId",required = false,name = "appId")
+            @RequestHeader(value = "appId")
+            String appId
+    ){
         return editconfigService.getValueById(key);
     }
 
@@ -36,7 +39,10 @@ public class EditconfigController {
     @RequestMapping(value = "/configs", method = RequestMethod.GET)
     @ResponseBody
     public Result getConfig(
-            @RequestHeader(value = "appId") String appId) {
+            @ApiParam(value = "特定的appId",required = false,name = "appId")
+            @RequestHeader(value = "appId")
+            String appId
+    ){
         return editconfigService.selectClientEditconfig();
     }
 

@@ -5,11 +5,7 @@ import com.ninehcom.newsserver.conf.DataBaseConfig;
 import com.ninehcom.newsserver.entity.Editconfig;
 import com.ninehcom.common.enums.ConfigKeys;
 import com.ninehcom.newsserver.mapper.EditconfigMapper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.ReaderContext;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.stereotype.Service;
 

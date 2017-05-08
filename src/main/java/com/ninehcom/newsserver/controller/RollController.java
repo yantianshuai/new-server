@@ -27,7 +27,9 @@ public class RollController {
     public Result selectAllRoll(
             @ApiParam(value = "count", required = true,name = "count")
             @PathVariable("count")int count,
-            @RequestHeader(value = "appId") String appId
+            @ApiParam(value = "特定的appId",required = false,name = "appId")
+            @RequestHeader(value = "appId")
+            String appId
     ) {
         return rollService.selectAllRoll(count);
     }

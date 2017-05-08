@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ninehcom.newsserver.mapper.NewsCommentMapper">
+    <resultMap type="com.ninehcom.newsserver.entity.NewsComment" id="newsCommentMap">
+        <id column="id" property="id"/>
+        <result column="ref_id" property="ref_id"/>
+        <result column="news_id" property="news_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="ref_user_id" property="ref_user_id"/>
+        <result column="context" property="context"/>
+        <result column="is_deleted" property="is_deleted"/>
+        <result column="create_at" property="create_at"/>
+        <result column="update_at" property="update_at"/>
+        <result column="praises" property="praises"/>
+    </resultMap>
+    <resultMap type="com.ninehcom.newsserver.entity.NewsCommentPraise" id="newsCommentPraiseMap">
+        <id column="id" property="id"/>
+        <result column="news_id" property="news_id"/>
+        <result column="ref_id" property="ref_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="ref_user_id" property="ref_user_id"/>
+        <result column="is_deleted" property="is_deleted"/>
+        <result column="create_at" property="create_at"/>
+    </resultMap>
+
+    <insert id="insertNewsComment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        news_comment
+        (ref_id,news_id,user_id,ref_user_id,context,is_deleted,create_at,update_at,praises)
+        VALUES
+        (#{ref_id},#{news_id},#{user_id},#{ref_user_id},#{context},0,now(),now(),0)
+    </insert>
+
+    <!--通过评论id获取评论对象-->
+    <select id="selectNewsCommentByCid" resultMap="newsCommentMap">
+      SELECT *
+      FROM news_comment
+      WHERE
+      id = #{id}
+    </select>
+
+    <!--根据 新闻id 获取新闻下所有的评论对象(带分页，按修改的时间倒叙)-->
+    <select id="selectNewsCommentsByNid" resultMap="newsCommentMap">
+        SELECT *
+        FROM news_comment
+        WHERE
+        news_id=#{news_id} and is_deleted = 0
+        ORDER BY update_at DESC
+        limit #{count},#{offset}
+    </select>
+
+    <!--获取全部的新闻评论-->
+    <select id="selectAllNewsCommentsByNid" resultMap="newsCommentMap">
+        SELECT *
+        FROM news_comment
+        WHERE
+        news_id=#{0} and is_deleted = 0
+        ORDER BY update_at DESC
+    </select>
+
+    <select id="selectNewsCommentsNumByNid" parameterType="int" resultType="int">
+      SELECT
+      count(*)
+      FROM news_comment
+      where
+      news_id = #{0} and is_deleted = 0
+    </select>
+
+
+    <!--根据新闻id 获取新闻下固定3条的热门评论（点赞数>20）-->
+    <select id="selectHotNewsCommentsByNid" resultMap="newsCommentMap">
+        SELECT *
+        FROM news_comment
+        WHERE
+        news_id=#{0} AND praises>19
+        ORDER BY praises DESC
+        limit 0,3
+    </select>
+
+    <!--点赞后 评价的点赞数量增加1-->
+    <update id="updateNewsCommentPraiseAdd">
+        UPDATE
+        news_comment
+        SET praises = praises+1
+        WHERE id = #{0}
+    </update>
+    <!--取消点赞后 评价的点赞数量减去1-->
+    <update id="updateNewsCommentPraiseCancel">
+        UPDATE
+        news_comment
+        SET praises = praises-1
+        WHERE id = #{0}
+    </update>
+
+
+    <!--操作点赞记录表-->
+
+    <!--插入点赞记录-->
+    <insert id="insertNewsCommentLoveLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        news_comment_lovelog
+        (news_id,ref_id,user_id,ref_user_id,create_at)
+        VALUES
+        (#{news_id},#{ref_id},#{user_id},#{ref_user_id},now())
+    </insert>
+    <!--删除点赞记录-->
+    <delete id="deleteNewsCommentLoveLog">
+        DELETE FROM
+        news_comment_lovelog
+        WHERE id = #{0}
+    </delete>
+    <!--通过被赞评论的id 和 当前用户的id来查询纪录-->
+    <select id="selectNewsCommentLoveLogByCidUid" resultMap="newsCommentPraiseMap">
+    SELECT *
+    FROM news_comment_lovelog
+    WHERE ref_id = #{comment_id} AND user_id=#{user_id}
+    </select>
+    
+</mapper>
+

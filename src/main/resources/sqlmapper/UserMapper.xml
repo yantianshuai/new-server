@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ninehcom.newsserver.mapper.UserMapper">
+    <resultMap type="com.ninehcom.newsserver.entity.User" id="userMap">
+        <id column="id" property="userId"/>
+
+        <result column="NickName" property="nickName"/>
+        <result column="Portrait" property="avatar"/>
+        <result column="Name" property="trueName"/>
+        <result column="Sex" property="sex"/>
+        <result column="Level" property="level"/>
+        <result column="Title" property="lvName"/>
+        <result column="AttentionCount" property="attentionCount"/>
+        <result column="FansCount" property="fansCount"/>
+        <result column="TopicCount" property="topicCount"/>
+    </resultMap>
+
+    <resultMap type="com.ninehcom.newsserver.entity.Tag" id="TagMap">
+        <id column="id" property="id"/>
+        <result column="key" property="key"/>
+        <result column="title" property="title"/>
+        <result column="icon_url" property="iconUrl"/>
+    </resultMap>
+
+    <select id="selectUserByUid"  resultMap="userMap">
+        select user_info.*,user_statistics.Level,user_statistics.Title,user_statistics.AttentionCount,user_statistics.FansCount,user_statistics.TopicCount
+        from user_info
+        left outer join user_statistics on user_info.id = user_statistics.UserId
+        where user_info.id=#{id}
+    </select>
+
+    <select id="selectTagByUserId" resultMap="TagMap">
+        SELECT
+        tag.id,
+        tag.`key`,
+        tag.title,
+        tag.icon_url
+        FROM
+        user_tag_relation
+        INNER JOIN tag ON tag.id = user_tag_relation.tag_id
+        WHERE
+        user_tag_relation.user_id = #{0}
+        ORDER BY
+        tag.id ASC
+    </select>
+
+    <!--测试填数据专用-->
+    <select id="selectUserIdByCount" resultMap="userMap">
+        select
+        Id
+        FROM user_info
+        limit #{0} , #{1}
+    </select>
+</mapper>
+
