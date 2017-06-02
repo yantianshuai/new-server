@@ -21,6 +21,7 @@
         ViewInApp=1
         ORDER BY
         roll.Sort ASC
+        LIMIT 0, #{0}
     </select>
 </mapper>
 

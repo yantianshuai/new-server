@@ -85,8 +85,8 @@ public class NewsCommentService {
                 sensitiveWordFilter.check(context);
             }catch (SensitiveException sensitiveException){
                 Result reu = new Result();
-                    reu.setErrCode(ErrorCode.NewsCommentContainSensitive.getCode());
-                    reu.setMessage(sensitiveException.getMessage());
+                reu.setErrCode(ErrorCode.NewsCommentContainSensitive.getCode());
+                reu.setMessage(sensitiveException.getMessage());
                 return reu;
             }catch (Exception e){
                 e.printStackTrace();

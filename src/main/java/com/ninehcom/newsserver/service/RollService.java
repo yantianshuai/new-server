@@ -26,4 +26,5 @@ public class RollService {
         ArrayList<Roll> rollList = (ArrayList)rollMapper.selectAllRoll(count);
         return Result.Success(rollList);
     }
+
 }

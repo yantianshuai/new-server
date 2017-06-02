@@ -19,8 +19,15 @@ public class AdvertService {
 
     @Autowired
     private  AdvertMapper  advertMapper;
+
+
     public Result selectAllAdvert() {
         ArrayList<Advert> advertList = (ArrayList)advertMapper.selectAllAdvert();
         return Result.Success(advertList);
     }
+
+    public AdvertService(AdvertMapper  advertMapper){
+        this.advertMapper = advertMapper;
+    }
+
 }

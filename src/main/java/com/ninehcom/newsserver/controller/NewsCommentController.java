@@ -39,7 +39,7 @@ public class NewsCommentController {
             String appId
     ) {
         //判断当前俱乐部是否开通了新闻评论的相关功能
-        if(!checkIsCanComment()){
+        if(!appId.equals("6")){
             return Result.Fail(ErrorCode.NewsCommentIsClose);    //当前新闻评论功能未开通
         }
         Result reBack = newsCommentService.addNewsComment(newsId, requestAddNewsComment.getUser_id(), requestAddNewsComment.getContext(), requestAddNewsComment.getRef_id(), requestAddNewsComment.getRef_user_id());

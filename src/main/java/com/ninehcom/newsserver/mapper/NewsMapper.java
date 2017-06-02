@@ -19,16 +19,15 @@ public class NewsMapper extends BaseMapper{
 
     public List<News> selectNewsByType(int typeId, PageRequest page){
         Map<String, Object> map = new HashMap<>();
-        if(typeId!=0){
-            map.put("typeId",Integer.valueOf(typeId).toString());
+        if(typeId != 0){
+            map.put("typeId",String.valueOf(typeId));
         }
         if(null != page){
             map.put("direction",page.getDirection().toString());
-            map.put("needPage",Boolean.valueOf(page.isNeedPage()).toString());
+            map.put("needPage", String.valueOf(page.isNeedPage()));
             map.put("offset",page.getOffset());
             map.put("pageSize",page.getPageSize());
         }
-
         return sqlSession.selectList("selectNewsByType",map);
     }
     

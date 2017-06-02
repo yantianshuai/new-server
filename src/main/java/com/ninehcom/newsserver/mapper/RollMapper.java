@@ -18,7 +18,7 @@ public class RollMapper extends BaseMapper{
 
     public List<Roll> selectAllRoll(int count){
         Map<String ,Integer> map = new HashMap<>();
-            map.put("count",Integer.valueOf(count));
+        map.put("count",Integer.valueOf(count));
         return sqlSession.selectList("selectAllRoll",map);
     }
 

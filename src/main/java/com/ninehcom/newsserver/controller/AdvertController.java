@@ -28,9 +28,8 @@ public class AdvertController {
     @RequestMapping(value = "/advert", method = RequestMethod.GET)
     @ResponseBody
     public Result selectAllAdvert(
-            @ApiParam(value = "特定的appId",required = false,name = "appId")
-            @RequestHeader(value = "appId")
-            String appId
+//            @ApiParam(value = "特定的appId",required = false,name = "appId")
+//            @RequestHeader(value = "appId") String appId
     ) {
         return advertService.selectAllAdvert();
     }

@@ -7,6 +7,7 @@ import com.ninehcom.newsserver.conf.DataSourceContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,10 +46,7 @@ public class DataSourceAop {
             String dasourceType = appIdMap.get(paramAppIdValue);
             log.info("dasourceType========="+dasourceType);
             DataSourceContextHolder.setDataSource(dasourceType);
-        }else{
-            throw new Exception(ErrorCode.Fail.getMessage());
         }
         return thisJoinPoint.proceed();
     }
-
 }
